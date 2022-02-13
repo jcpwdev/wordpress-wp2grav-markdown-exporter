@@ -1,3 +1,8 @@
+# Forkinfo
+
+This fork tries to update the functionality of the old Plugin to the current version of both systems as well as making it possible to export images.
+
+
 # WP2Grav - Export your Wordpress Site into getgrav.org content structure
 
 Export your Wordpress posts, pages and more into a markdown content structure for [Grav - A Modern Flat-File CMS](getgrav.org)
