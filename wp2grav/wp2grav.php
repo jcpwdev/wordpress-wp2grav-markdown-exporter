@@ -53,6 +53,7 @@ if (file_exists(WP_PLUGIN_DIR . '/wp2grav/includes/theme_init.php')) {
 
 // Support
 require_once WP_PLUGIN_DIR . '/wp2grav/includes/wp2grav-view.class.php';
+require_once WP_PLUGIN_DIR . '/wp2grav/includes/ContentCleaner.php';
 
 // Do the businesss
 require_once WP_PLUGIN_DIR . '/wp2grav/includes/wp2grav.class.php';

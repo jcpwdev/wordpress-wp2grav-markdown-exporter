@@ -29,16 +29,6 @@ if (get_the_tags($post->ID)) {
 author: <?php echo the_author_meta('user_nicename', $author_id); echo "\n"; ?>
 metadata:
     author: <?php echo the_author_meta('user_nicename', $author_id); echo "\n"; ?>
-#      description: Your page description goes here
-#      keywords: HTML, CSS, XML, JavaScript
-#      robots: noindex, nofollow
-#      og:
-#          title: The Rock
-#          type: video.movie
-#          url: http://www.imdb.com/title/tt0117500/
-#          image: http://ia.media-imdb.com/images/rock.jpg
-#  cache_enable: false
-#  last_modified: true
 
 ---
 

@@ -300,8 +300,8 @@ class WP2GravAdmin extends WP2Grav
         );
 
         // export pages
-        $contentArray = wp2grav_get_pages($args, 'page');
-        $this->processExport($contentArray, $qt, $qtranslate_slug, null, 'default');
+        //$contentArray = wp2grav_get_pages($args, 'page');
+        //$this->processExport($contentArray, $qt, $qtranslate_slug, null, 'default');
 
 
         // reset content tree

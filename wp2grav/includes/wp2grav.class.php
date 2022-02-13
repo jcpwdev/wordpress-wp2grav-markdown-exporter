@@ -320,9 +320,14 @@ class WP2Grav
 
         // make sure all shortcodes are resolved
         $content = do_shortcode($content);
-        $content = do_shortcode($content);
-        $content = do_shortcode($content);
 
+        $contentCleaner = new ContentCleaner($content);
+
+        $contentCleaner->removeSquareBracketsPseudoCode();
+
+        $content = $contentCleaner->getContent();
+
+        var_dump("XX");
 
         // issue: e.g. a "</p>" tag breaks the converter
         // try to remove these invalid content
