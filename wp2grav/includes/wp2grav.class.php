@@ -59,6 +59,7 @@ class WP2Grav
         $languages = ($qtranslate_slug) ? $qt["enabled_languages"] : false;
         $this->themeInit();
 
+
         foreach ($contentArray as $idx => $contentItem) {
             $pageObj = $contentItem['page'];
             $subtreeData = $contentItem['subtree'];
@@ -415,7 +416,7 @@ class wp2grav_content_tree
                 "post_status" => "any",
                 "fields" => "id=>parent"
             ));
-            //print_r($all_pages);exit;
+
             wp2grav_content_tree::$arr_all_pages_id_parent = $all_pages;
         }
         return wp2grav_content_tree::$arr_all_pages_id_parent;
@@ -444,7 +445,7 @@ function wp2grav_get_pages($args, $post_type = 'page')
         "numberposts" => "-1",
         "orderby" => "menu_order",
         "order" => "ASC",
-        "post_status" => "any",
+        "post_status" => "publish",
         "suppress_filters" => 0 // suppose to fix problems with WPML
     );
     $args = wp_parse_args($args, $defaults);
