@@ -152,10 +152,10 @@ class WP2Grav
 
         if ($language) {
             $title = qtrans_use($language, $post->post_title, false);
-            $content = $this->processContent(qtrans_use($language, $post->post_content, false));
+            $content = $this->processContent(qtrans_use($language, $post->post_content, false), $dir);
         } else {
             $title = get_the_title($post->ID);
-            $content = $this->processContent($post->post_content);
+            $content = $this->processContent($post->post_content, $dir);
         }
 
 
@@ -314,20 +314,31 @@ class WP2Grav
         }
     }
 
-    public function processContent($content)
+    public function processContent($content, $directoryForFiles)
     {
-        $content = apply_filters('the_content', $content);
+        // atleast in Divi this adds weird glyphs to content, makes it almost imparseable
+        //$content = apply_filters('the_content', $content);
 
         // make sure all shortcodes are resolved
         $content = do_shortcode($content);
 
-        $contentCleaner = new ContentCleaner($content);
+        if($content) {
 
-        $contentCleaner->removeSquareBracketsPseudoCode();
+            $contentCleaner = new ContentCleaner($content);
 
-        $content = $contentCleaner->getContent();
+            $stuffInBrackets = $contentCleaner->removeSquareBracketsPseudoCode();
 
-        var_dump("XX");
+            $imagePaths = $contentCleaner->findImagePathsIn($stuffInBrackets);
+
+            $content = $contentCleaner->getContent();
+
+            foreach($imagePaths as $imagePath) {
+                if($this->moveImage($imagePath, $directoryForFiles)) {
+                    //todo: imgtag im content hinzufügen
+                }
+            }
+
+        }
 
         // issue: e.g. a "</p>" tag breaks the converter
         // try to remove these invalid content
@@ -399,6 +410,21 @@ class WP2Grav
                 update_option('active_plugins', $plugins);
             }
         }
+    }
+
+    private function moveImage($imagePath, $directoryForFiles)
+    {
+        $imagePathArray = explode("wp-content/", $imagePath);
+        $relativeFilePath = WP_CONTENT_DIR . "/" . $imagePathArray[1];
+
+        if(file_exists($relativeFilePath)) {
+            return copy(
+                $relativeFilePath,
+                $directoryForFiles . '/' . basename($imagePath)
+            );
+        }
+
+        return false;
     }
 }
 
